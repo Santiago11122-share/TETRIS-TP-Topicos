@@ -524,12 +524,12 @@
 	<SDL2/SDL_ttf.h>
 	<SDL2/SDL_mixer.h>
 
-1788928395 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.c
+1789445937 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.c
 	"FuncionesSDL.h"
 	<stdio.h>
 	<stdlib.h>
 
-1788919032 c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.h
+1789445937 c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.h
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_ttf.h>
@@ -998,38 +998,39 @@
 	"begin_code.h"
 	"close_code.h"
 
-1788826305 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
+1789444379 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
+	"juego.h"
 
-1788928259 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\main.c
+1789442843 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\main.c
 	<stdio.h>
 	<stdlib.h>
-	"pieza.h"
-	"tablero.h"
-	"FuncionesSDL.h"
+	"juego.h"
 
-1788836123 c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.h
+1789439649 c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.h
 
-1788838036 c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.h
+1789444657 c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.h
 	"pieza.h"
 
-1788926297 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.c
+1789438277 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.c
 	<stdbool.h>
 	<stdio.h>
 	<stdlib.h>
 	"Musica.h"
 
-1788893743 c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.h
+1789442337 c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.h
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_ttf.h>
 	<SDL2/SDL_mixer.h>
+	<stdbool.h>
 
-1788927290 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.c
+1789444718 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.c
 	"pieza.h"
 	<stdlib.h>
+	<stdio.h>
 	<time.h>
 
-1788927718 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
+1789444683 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
 	"tablero.h"
 	<stdio.h>
 	<stdlib.h>
@@ -1542,4 +1543,10 @@
 	"tablero.h"
 	<stdio.h>
 	<stdlib.h>
+
+1789445956 c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.h
+	"tablero.h"
+	"pieza.h"
+	"FuncionesSDL.h"
+	"Musica.h"
 

@@ -1,5 +1,6 @@
 #include "pieza.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 t_pieza crearPieza() {

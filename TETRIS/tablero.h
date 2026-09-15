@@ -5,6 +5,15 @@
 
 #define FILAS 26
 #define COLUMNAS 12
+#define INICIOFILAREAL 5
+#define INICIOCOLREAL 1
+
+#define TECLA_NINGUNA    0
+#define TECLA_IZQUIERDA  1
+#define TECLA_DERECHA    2
+#define TECLA_ABAJO      3
+#define TECLA_ROTAR      4
+#define TECLA_SALIR      5
 
 typedef struct {
 
@@ -18,7 +27,9 @@ int hayColision(t_tablero *tablero,t_pieza *pieza,int nuevoX,int nuevoY);
 
 void colocarPieza(t_tablero *tablero,t_pieza *pieza);
 
-int eliminarFilas(t_tablero *tablero);
+void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla);
+
+void eliminarFilas(t_tablero *tablero);
 
 
 #endif // TABLERO_H_INCLUDED

@@ -132,62 +132,95 @@ SDL_Texture *cargarImagen(SDL_Renderer *renderer, const char *ruta)
     return textura;
 }
 
-void ejecutar_juego(SDL_Renderer *renderer, t_tablero *tablero)
+
+void dibujarJuego(SDL_Renderer *renderer,t_tablero *tablero,t_pieza *pieza,SDL_Texture *fondo)
 {
-    int ejecutando = 1;
-    SDL_Event evento;
-
-    // Cargar la imagen UNA SOLA VEZ
-    SDL_Texture *imagen = cargarImagen(renderer, "img/Fondo.png");
-
-    // Posicion fija de la imagen
     SDL_Rect destinoImagen;
 
-    destinoImagen.x = 0;   // posicion horizontal
-    destinoImagen.y = 0;   // posicion vertical
-    destinoImagen.w = 890;   // ancho
-    destinoImagen.h = 800;   // alto
+    destinoImagen.x = 0;
+    destinoImagen.y = 0;
+    destinoImagen.w = 890;
+    destinoImagen.h = 800;
 
+    SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
+    SDL_RenderClear(renderer);
 
-    while (ejecutando)
+    if(fondo != NULL)
     {
-        while (SDL_PollEvent(&evento))
+        SDL_RenderCopy(renderer,
+                       fondo,
+                       NULL,
+                       &destinoImagen);
+    }
+
+    // Piezas ya fijadas
+    dibujarTablero(renderer, tablero);
+
+    // Pieza que esta cayendo
+    dibujarPieza(renderer, pieza);
+
+    SDL_RenderPresent(renderer);
+}
+
+int procesarEvento()
+{
+    SDL_Event evento;
+
+    while(SDL_PollEvent(&evento))
+    {
+        if(evento.type == SDL_QUIT)
         {
-            if (evento.type == SDL_QUIT)
+            return TECLA_SALIR;
+        }
+
+        if(evento.type == SDL_KEYDOWN)
+        {
+            switch(evento.key.keysym.sym)
             {
-                ejecutando = 0;
+                case SDLK_LEFT:
+                    return TECLA_IZQUIERDA;
+
+                case SDLK_RIGHT:
+                    return TECLA_DERECHA;
+
+                case SDLK_DOWN:
+                    return TECLA_ABAJO;
+
+                case SDLK_UP:
+                    return TECLA_ROTAR;
+
+                case SDLK_ESCAPE:
+                    return TECLA_SALIR;
             }
         }
-
-        // 1. Limpiar pantalla
-        SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
-        SDL_RenderClear(renderer);
-
-        // 2. Dibujar imagen siempre en la misma posicion
-        if(imagen != NULL)
-        {
-            SDL_RenderCopy(
-                renderer,
-                imagen,
-                NULL,
-                &destinoImagen
-            );
-        }
-
-        // 3. Dibujar tablero
-        dibujarTablero(renderer, tablero);
-
-        // 4. Dibujar siguiente pieza
-
-
-        // 5. Mostrar todo
-        SDL_RenderPresent(renderer);
     }
 
+    return TECLA_NINGUNA;
+}
 
-    // Liberar imagen al terminar el juego
-    if(imagen != NULL)
+void dibujarPieza(SDL_Renderer *renderer, t_pieza *pieza)
+{
+    SDL_Rect bloque;
+
+    bloque.w = 23;
+    bloque.h = 23;
+
+    for(int f = 0; f < 4; f++)
     {
-        SDL_DestroyTexture(imagen);
+        for(int c = 0; c < 4; c++)
+        {
+            if(pieza->forma[f][c] != 0)
+            {
+                bloque.x = 325 + (pieza->x + c) * 25 + 1;
+                bloque.y = 125 + (pieza->y + f) * 25 + 1;
+
+                SDL_SetRenderDrawColor(renderer, 0, 150, 255, 255);
+                SDL_RenderFillRect(renderer, &bloque);
+
+                SDL_SetRenderDrawColor(renderer, 220, 220, 220, 255);
+                SDL_RenderDrawRect(renderer, &bloque);
+            }
+        }
     }
 }
+

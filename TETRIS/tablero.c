@@ -7,7 +7,7 @@ t_tablero inicializarTablero()
     for(int f=0;f<FILAS;f++)
     {
         //dibujamos # para marcar el tablero o 0 para marcar espacios libres
-        if(f==4||f==25)
+        if(f==25)
         {
             for(int c=0; c<COLUMNAS; c++)
             {
@@ -71,31 +71,9 @@ void colocarPieza(t_tablero *tablero, t_pieza *pieza)
             }
         }
     }
+    *pieza=crearPieza();
 }
 
-void moverpieza_costados(t_tablero *tablero,t_pieza *pieza)
-{
-    char movimiento;
-    printf("Mover hacia la izquierda I | Mover hacia la derecha D\n");
-    fflush(stdin);
-    scanf("%c",&movimiento);
-    switch(movimiento)
-    {
-        case 'I':
-            if(hayColision(tablero,pieza,pieza->x-1,pieza->y)==0)
-            {
-                pieza->x--;
-            }
-            break;
-        case 'D':
-            if(hayColision(tablero,pieza,pieza->x+1,pieza->y)==0)
-            {
-                pieza->x++;
-            }
-            break;
-
-    }
-}
 int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza)
 {
     if(hayColision(tablero,pieza,pieza->x,pieza->y+1)==0)
@@ -109,8 +87,71 @@ int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza)
         //se fija la pieza en el tablero
         colocarPieza(tablero,pieza);
     }
+    return 0;
+}
 
+void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla)
+{
+    switch(tecla)
+        {
+            case TECLA_IZQUIERDA:
+
+                if(hayColision(tablero,pieza,pieza->x-1,pieza->y)==0)
+                {
+                    pieza->x--;
+                }
+                break;
+
+            case TECLA_DERECHA:
+                if(hayColision(tablero,pieza,pieza->x+1,pieza->y)==0)
+                {
+                    pieza->x++;
+                }
+                break;
+
+            case TECLA_ABAJO:
+                moverpieza_abajo(tablero,pieza);
+                break;
+
+            case TECLA_ROTAR:
+                rotarPieza(pieza);
+                break;
+        }
 }
 
 
-int eliminarFilas(t_tablero *tablero);
+void eliminarFilas(t_tablero *tablero)
+{
+    int f,c=INICIOCOLREAL, escompleta=1;
+    for(f=INICIOFILAREAL;f<FILAS;f++)
+    {
+        while(tablero->celdas[f][c]==1&&c<COLUMNAS)
+        {
+            c++;
+        }
+
+        if(tablero->celdas[f][c]==0)
+            escompleta=0;
+
+        if(escompleta==1)
+        {
+            c=INICIOCOLREAL;
+            while(tablero->celdas[f][c]==1&&c<COLUMNAS)
+            {
+                tablero->celdas[f][c]=0;
+            }
+        }
+    }
+}
+
+int findejuego(t_tablero *tablero,t_pieza *pieza)
+{
+    int sigueElJuego=1,c=INICIOCOLREAL;
+    while(tablero->celdas[INICIOFILAREAL][c]==0&&c<COLUMNAS)
+    {
+        c++;
+    }
+    if(tablero->celdas[INICIOFILAREAL][c]==1)
+        sigueElJuego=0;
+    return sigueElJuego;
+}

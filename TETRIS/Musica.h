@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
+#include <stdbool.h>
 bool iniciar_audio (void);
 bool iniciar_mixer(void);
 Mix_Music* cargar_musica(const char* ubicacion);
