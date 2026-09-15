@@ -998,7 +998,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1789444379 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
+1789447442 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
 	"juego.h"
 
 1789442843 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\main.c
@@ -1006,7 +1006,7 @@
 	<stdlib.h>
 	"juego.h"
 
-1789439649 c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.h
+1789476755 c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.h
 
 1789444657 c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.h
 	"pieza.h"
@@ -1024,13 +1024,13 @@
 	<SDL2/SDL_mixer.h>
 	<stdbool.h>
 
-1789444718 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.c
+1789476755 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.c
 	"pieza.h"
 	<stdlib.h>
 	<stdio.h>
 	<time.h>
 
-1789444683 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
+1789477373 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
 	"tablero.h"
 	<stdio.h>
 	<stdlib.h>

@@ -80,22 +80,6 @@ t_pieza crearPieza() {
     return p;
 }
 
-void rotarPieza(t_pieza *pieza)
-{
-    t_pieza aux;
-    for(int f=0;f<4;f++)
-    {
-        for(int c=0;c<4;c++)
-        {
-            aux.forma[c][f]=pieza->forma[3-f][c];
-        }
-    }
-    for(int f = 0; f < 4; f++) {
-        for(int c = 0; c < 4; c++) {
-            pieza->forma[f][c] = aux.forma[f][c];
-        }
-    }
-}
 
 void mostrarpieza(t_pieza *pieza)
 {

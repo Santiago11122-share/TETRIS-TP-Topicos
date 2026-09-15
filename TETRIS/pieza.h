@@ -9,6 +9,6 @@ typedef struct {
 } t_pieza;
 
 t_pieza crearPieza();
-void rotarPieza(t_pieza *pieza);
+
 
 #endif // PIEZA_H_INCLUDED

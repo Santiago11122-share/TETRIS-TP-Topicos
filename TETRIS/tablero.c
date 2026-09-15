@@ -39,23 +39,55 @@ void mostrartablero(t_tablero *tablero)
     }
 }
 
-int hayColision(t_tablero *tablero,t_pieza *pieza,int nuevoX,int nuevoY)
+int hayColision(t_tablero *tablero, t_pieza *pieza, int nuevoX, int nuevoY)
 {
-    int f,c;
-    for(f=0;f<4;f++)
+    int f, c;
+
+    for(f=0; f<4; f++)
     {
-        for(c=0;c<4;c++)
+        for(c=0; c<4; c++)
         {
-            if(pieza->forma[f][c]!=0)
+            if(pieza->forma[f][c] != 0)
             {
-                if(tablero->celdas[nuevoY+f][nuevoX+c]!=0)
-                    //con colision
+                // Verificar que no salga del tablero
+                if(nuevoX+c < 0 || nuevoX+c >= COLUMNAS)
+                    return 1;
+
+                if(nuevoY+f < 0 || nuevoY+f >= FILAS)
+                    return 1;
+
+                // Verificar colision con otra pieza o borde
+                if(tablero->celdas[nuevoY+f][nuevoX+c] != 0)
                     return 1;
             }
         }
     }
-    //Sin colision
+    //sin colision
     return 0;
+}
+
+void rotarPieza(t_tablero *tablero,t_pieza *pieza)
+{
+    t_pieza aux;
+    aux.x=pieza->x;
+    aux.y=pieza->y;
+    for(int f=0;f<4;f++)
+    {
+        for(int c=0;c<4;c++)
+        {
+            aux.forma[c][f]=pieza->forma[3-f][c];
+        }
+    }
+    if(hayColision(tablero,&aux,aux.x,aux.y)==0)
+    {
+        for(int f = 0; f < 4; f++)
+        {
+            for(int c = 0; c < 4; c++)
+            {
+                pieza->forma[f][c] = aux.forma[f][c];
+            }
+        }
+    }
 }
 
 void colocarPieza(t_tablero *tablero, t_pieza *pieza)
@@ -114,7 +146,7 @@ void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla)
                 break;
 
             case TECLA_ROTAR:
-                rotarPieza(pieza);
+                rotarPieza(tablero,pieza);
                 break;
         }
 }
@@ -122,24 +154,41 @@ void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla)
 
 void eliminarFilas(t_tablero *tablero)
 {
-    int f,c=INICIOCOLREAL, escompleta=1;
-    for(f=INICIOFILAREAL;f<FILAS;f++)
-    {
-        while(tablero->celdas[f][c]==1&&c<COLUMNAS)
-        {
-            c++;
-        }
+    int f, c, escompleta;
 
-        if(tablero->celdas[f][c]==0)
-            escompleta=0;
+    for(f=INICIOFILAREAL; f<FILAS-1; f++)
+    {
+        escompleta=1;
+
+        // Verificar si la fila está completa
+        for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
+        {
+            if(tablero->celdas[f][c]!=1)
+            {
+                escompleta=0;
+            }
+        }
 
         if(escompleta==1)
         {
-            c=INICIOCOLREAL;
-            while(tablero->celdas[f][c]==1&&c<COLUMNAS)
+            // Bajar las filas superiores
+            for(int fila=f; fila>INICIOFILAREAL; fila--)
             {
-                tablero->celdas[f][c]=0;
+                for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
+                {
+                    tablero->celdas[fila][c]=
+                        tablero->celdas[fila-1][c];
+                }
             }
+
+            // Limpiar la primera fila jugable
+            for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
+            {
+                tablero->celdas[INICIOFILAREAL][c]=0;
+            }
+
+            // Volver a revisar la misma fila
+            f--;
         }
     }
 }
