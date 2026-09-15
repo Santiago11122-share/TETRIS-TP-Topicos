@@ -90,6 +90,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="pieza.h" />
+		<Unit filename="puntaje.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="puntaje.h" />
 		<Unit filename="tablero.c">
 			<Option compilerVar="CC" />
 		</Unit>

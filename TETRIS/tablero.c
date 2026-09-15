@@ -152,9 +152,9 @@ void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla)
 }
 
 
-void eliminarFilas(t_tablero *tablero)
+int eliminarFilas(t_tablero *tablero)
 {
-    int f, c, escompleta;
+    int f, c, escompleta,contadordefilaseliminadas=0;
 
     for(f=INICIOFILAREAL; f<FILAS-1; f++)
     {
@@ -171,6 +171,7 @@ void eliminarFilas(t_tablero *tablero)
 
         if(escompleta==1)
         {
+            contadordefilaseliminadas++;
             // Bajar las filas superiores
             for(int fila=f; fila>INICIOFILAREAL; fila--)
             {
@@ -191,6 +192,7 @@ void eliminarFilas(t_tablero *tablero)
             f--;
         }
     }
+    return contadordefilaseliminadas;
 }
 
 int findejuego(t_tablero *tablero,t_pieza *pieza)

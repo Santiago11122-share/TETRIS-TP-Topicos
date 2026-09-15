@@ -133,7 +133,10 @@ SDL_Texture *cargarImagen(SDL_Renderer *renderer, const char *ruta)
 }
 
 
-void dibujarJuego(SDL_Renderer *renderer,t_tablero *tablero,t_pieza *pieza,SDL_Texture *fondo)
+void dibujarJuego(SDL_Renderer *renderer,
+                  t_tablero *tablero,
+                  t_pieza *pieza,
+                  SDL_Texture *fondo)
 {
     SDL_Rect destinoImagen;
 
@@ -159,7 +162,6 @@ void dibujarJuego(SDL_Renderer *renderer,t_tablero *tablero,t_pieza *pieza,SDL_T
     // Pieza que esta cayendo
     dibujarPieza(renderer, pieza);
 
-    SDL_RenderPresent(renderer);
 }
 
 int procesarEvento()
@@ -222,5 +224,83 @@ void dibujarPieza(SDL_Renderer *renderer, t_pieza *pieza)
             }
         }
     }
+}
+
+void mostrarPuntaje(SDL_Renderer *render, TTF_Font *fuente, long long int puntaje)
+{
+    char texto[50];
+
+    sprintf(texto, "%lld", puntaje);
+
+    SDL_Color color = {255, 255, 255, 255};
+
+    SDL_Surface *superficie =
+        TTF_RenderText_Solid(fuente, texto, color);
+
+    if(superficie == NULL)
+    {
+        printf("Error superficie: %s\n", TTF_GetError());
+        return;
+    }
+
+    SDL_Texture *textura =
+        SDL_CreateTextureFromSurface(render, superficie);
+
+    if(textura == NULL)
+    {
+        printf("Error textura: %s\n", SDL_GetError());
+        SDL_FreeSurface(superficie);
+        return;
+    }
+
+    SDL_Rect destino = {
+        675,
+        105,
+        superficie->w,
+        superficie->h
+    };
+
+    SDL_RenderCopy(render, textura, NULL, &destino);
+
+    SDL_DestroyTexture(textura);
+    SDL_FreeSurface(superficie);
+}
+
+void mostrarPuntajeActual(SDL_Renderer *render,TTF_Font *fuente,long long int puntaje)
+{
+    char texto[50];
+
+    sprintf(texto, "%lld", puntaje);
+
+    SDL_Color color = {255, 255, 255, 255};
+
+    SDL_Surface *superficie =
+        TTF_RenderText_Solid(fuente, texto, color);
+
+    if(superficie == NULL)
+    {
+        return;
+    }
+
+    SDL_Texture *textura =
+        SDL_CreateTextureFromSurface(render, superficie);
+
+    if(textura == NULL)
+    {
+        SDL_FreeSurface(superficie);
+        return;
+    }
+
+    SDL_Rect destino = {
+        675,
+        200,   // cambiar segun donde este el cuadro SCORE
+        superficie->w,
+        superficie->h
+    };
+
+    SDL_RenderCopy(render, textura, NULL, &destino);
+
+    SDL_DestroyTexture(textura);
+    SDL_FreeSurface(superficie);
 }
 

@@ -29,7 +29,7 @@ void colocarPieza(t_tablero *tablero,t_pieza *pieza);
 
 void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla);
 
-void eliminarFilas(t_tablero *tablero);
+int eliminarFilas(t_tablero *tablero);
 
 
 #endif // TABLERO_H_INCLUDED
