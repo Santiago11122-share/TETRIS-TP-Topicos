@@ -9,16 +9,18 @@ int main()
 {
     t_pieza pieza;
     t_tablero tablero;
-    SDL_Window *ventana=NULL;
-    SDL_Renderer *render=NULL;
+
+    SDL_Window *ventana = NULL;
+    SDL_Renderer *render = NULL;
+
     inicializar_sdl(&ventana,&render);
     iniciar_audio ();
     iniciar_mixer();
     cargar_musica_menu();
-    ejecutar_juego(render);
-
-
+    tablero=inicializarTablero();
     pieza=crearPieza();
+    colocarPieza(&tablero,&pieza);
+    ejecutar_juego(render,&tablero);
     mostrarpieza(&pieza);
     printf("\n");
 
@@ -36,9 +38,6 @@ int main()
     rotarPieza(&pieza);
     printf("\n");
     mostrarpieza(&pieza);*/
-    tablero=inicializarTablero();
-    colocarPieza(&tablero,&pieza);
-    mostrartablero(&tablero);
 
 
     return 0;

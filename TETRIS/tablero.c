@@ -39,9 +39,26 @@ void mostrartablero(t_tablero *tablero)
     }
 }
 
-int hayColision(t_tablero *tablero,t_pieza *pieza,int nuevoX,int nuevoY);
+int hayColision(t_tablero *tablero,t_pieza *pieza,int nuevoX,int nuevoY)
+{
+    int f,c;
+    for(f=0;f<4;f++)
+    {
+        for(c=0;c<4;c++)
+        {
+            if(pieza->forma[f][c]!=0)
+            {
+                if(tablero->celdas[nuevoY+f][nuevoX+c]!=0)
+                    //con colision
+                    return 1;
+            }
+        }
+    }
+    //Sin colision
+    return 0;
+}
 
-void colocarPieza(t_tablero *tablero,t_pieza *pieza)
+void colocarPieza(t_tablero *tablero, t_pieza *pieza)
 {
     for(int f = 0; f < 4; f++)
     {
@@ -49,11 +66,50 @@ void colocarPieza(t_tablero *tablero,t_pieza *pieza)
         {
             if(pieza->forma[f][c] != 0)
             {
-                tablero->celdas[f][c + 4] = pieza->forma[f][c];
+                tablero->celdas[pieza->y + f][pieza->x + c] =
+                    pieza->forma[f][c];
             }
         }
-        printf("\n");
     }
+}
+
+void moverpieza_costados(t_tablero *tablero,t_pieza *pieza)
+{
+    char movimiento;
+    printf("Mover hacia la izquierda I | Mover hacia la derecha D\n");
+    fflush(stdin);
+    scanf("%c",&movimiento);
+    switch(movimiento)
+    {
+        case 'I':
+            if(hayColision(tablero,pieza,pieza->x-1,pieza->y)==0)
+            {
+                pieza->x--;
+            }
+            break;
+        case 'D':
+            if(hayColision(tablero,pieza,pieza->x+1,pieza->y)==0)
+            {
+                pieza->x++;
+            }
+            break;
+
+    }
+}
+int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza)
+{
+    if(hayColision(tablero,pieza,pieza->x,pieza->y+1)==0)
+    {
+        pieza->y++;
+        //se bajo la pieza
+        return 0;
+    }
+    else
+    {
+        //se fija la pieza en el tablero
+        colocarPieza(tablero,pieza);
+    }
+
 }
 
 

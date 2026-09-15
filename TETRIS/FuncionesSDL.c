@@ -13,8 +13,8 @@ int inicializar_sdl(SDL_Window **ventana, SDL_Renderer **renderer)
         "TETRIS-LOS TETROMINOS",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
+        890,
         800,
-        600,
         SDL_WINDOW_SHOWN
     );
 
@@ -42,21 +42,115 @@ int inicializar_sdl(SDL_Window **ventana, SDL_Renderer **renderer)
     return 0;
 }
 
-void ejecutar_juego(SDL_Renderer *renderer)
+void dibujarTablero(SDL_Renderer *render, t_tablero *tablero)
+{
+    SDL_Rect celda;
+    SDL_Rect bloque;
+
+    celda.w = 25;
+    celda.h = 25;
+
+    for(int f = 0; f < FILAS; f++)
+    {
+        for(int c = 0; c < COLUMNAS; c++)
+        {
+            celda.x = 325 + c * 25;
+            celda.y = 125 + f * 25;
+
+            // Rectangulo un poco mas chico
+            // para dejar separacion entre bloques
+            bloque.x = celda.x + 1;
+            bloque.y = celda.y + 1;
+            bloque.w = celda.w - 2;
+            bloque.h = celda.h - 2;
+
+
+            // CELDA VACIA
+            if(tablero->celdas[f][c] == 0)
+            {
+                // Fondo negro
+                SDL_SetRenderDrawColor(render, 15, 15, 15, 255);
+                SDL_RenderFillRect(render, &celda);
+
+                // Linea de la cuadricula
+                SDL_SetRenderDrawColor(render, 45, 45, 45, 255);
+                SDL_RenderDrawRect(render, &celda);
+            }
+
+
+            // PIEZA
+            else if(tablero->celdas[f][c] == 1)
+            {
+                // Fondo de la celda
+                SDL_SetRenderDrawColor(render, 15, 15, 15, 255);
+                SDL_RenderFillRect(render, &celda);
+
+                // Bloque azul
+                SDL_SetRenderDrawColor(render, 0, 150, 255, 255);
+                SDL_RenderFillRect(render, &bloque);
+
+                // Borde claro del bloque
+                SDL_SetRenderDrawColor(render, 220, 220, 220, 255);
+                SDL_RenderDrawRect(render, &bloque);
+            }
+
+
+            // BORDE DEL TABLERO
+            else if(tablero->celdas[f][c] == 2)
+            {
+                SDL_SetRenderDrawColor(render, 150, 150, 150, 255);
+                SDL_RenderFillRect(render, &celda);
+
+                SDL_SetRenderDrawColor(render, 220, 220, 220, 255);
+                SDL_RenderDrawRect(render, &celda);
+            }
+        }
+    }
+}
+
+SDL_Texture *cargarImagen(SDL_Renderer *renderer, const char *ruta)
+{
+    SDL_Surface *superficie = IMG_Load(ruta);
+
+    if(superficie == NULL)
+    {
+        printf("Error al cargar imagen: %s\n", IMG_GetError());
+        return NULL;
+    }
+
+    SDL_Texture *textura =
+        SDL_CreateTextureFromSurface(renderer, superficie);
+
+    SDL_FreeSurface(superficie);
+
+    if(textura == NULL)
+    {
+        printf("Error al crear textura: %s\n", SDL_GetError());
+        return NULL;
+    }
+
+    return textura;
+}
+
+void ejecutar_juego(SDL_Renderer *renderer, t_tablero *tablero)
 {
     int ejecutando = 1;
     SDL_Event evento;
 
-    SDL_Rect cuadrado = {
-        350,    // X
-        250,    // Y
-        100,    // Ancho
-        100     // Alto
-    };
+    // Cargar la imagen UNA SOLA VEZ
+    SDL_Texture *imagen = cargarImagen(renderer, "img/Fondo.png");
+
+    // Posicion fija de la imagen
+    SDL_Rect destinoImagen;
+
+    destinoImagen.x = 0;   // posicion horizontal
+    destinoImagen.y = 0;   // posicion vertical
+    destinoImagen.w = 890;   // ancho
+    destinoImagen.h = 800;   // alto
+
 
     while (ejecutando)
     {
-        // Procesar eventos
         while (SDL_PollEvent(&evento))
         {
             if (evento.type == SDL_QUIT)
@@ -65,17 +159,35 @@ void ejecutar_juego(SDL_Renderer *renderer)
             }
         }
 
-        // Limpiar pantalla
+        // 1. Limpiar pantalla
         SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
         SDL_RenderClear(renderer);
 
-        // Color del cuadrado
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        // 2. Dibujar imagen siempre en la misma posicion
+        if(imagen != NULL)
+        {
+            SDL_RenderCopy(
+                renderer,
+                imagen,
+                NULL,
+                &destinoImagen
+            );
+        }
 
-        // Dibujar cuadrado
-        SDL_RenderFillRect(renderer, &cuadrado);
+        // 3. Dibujar tablero
+        dibujarTablero(renderer, tablero);
 
-        // Mostrar lo dibujado
+        // 4. Dibujar siguiente pieza
+
+
+        // 5. Mostrar todo
         SDL_RenderPresent(renderer);
+    }
+
+
+    // Liberar imagen al terminar el juego
+    if(imagen != NULL)
+    {
+        SDL_DestroyTexture(imagen);
     }
 }

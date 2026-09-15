@@ -524,16 +524,17 @@
 	<SDL2/SDL_ttf.h>
 	<SDL2/SDL_mixer.h>
 
-1788893630 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.c
+1788928395 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.c
 	"FuncionesSDL.h"
 	<stdio.h>
 	<stdlib.h>
 
-1788891631 c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.h
+1788919032 c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.h
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_ttf.h>
 	<SDL2/SDL_mixer.h>
+	"tablero.h"
 
 1748917206 c:\users\santi\documents\github\tetris-tp topicos\tetris\lib\sdl2-2.32.8\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -999,7 +1000,7 @@
 
 1788826305 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
 
-1788894771 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\main.c
+1788928259 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\main.c
 	<stdio.h>
 	<stdlib.h>
 	"pieza.h"
@@ -1011,7 +1012,7 @@
 1788838036 c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.h
 	"pieza.h"
 
-1788894999 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.c
+1788926297 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.c
 	<stdbool.h>
 	<stdio.h>
 	<stdlib.h>
@@ -1023,12 +1024,12 @@
 	<SDL2/SDL_ttf.h>
 	<SDL2/SDL_mixer.h>
 
-1788840181 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.c
+1788927290 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.c
 	"pieza.h"
 	<stdlib.h>
 	<time.h>
 
-1788840010 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
+1788927718 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
 	"tablero.h"
 	<stdio.h>
 	<stdlib.h>

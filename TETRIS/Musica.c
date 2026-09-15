@@ -50,7 +50,7 @@ Mix_Music* cargar_musica(const char* ubicacion)
 /* Carga y reproduce la musica del menu */
 Mix_Music* cargar_musica_menu(void)
 {
-    Mix_Music* musica = cargar_musica("snd/L-gante.mp3");
+    Mix_Music* musica = cargar_musica("snd/TetrisMusica.mp3");
 
     if (musica == NULL)
         return NULL;
