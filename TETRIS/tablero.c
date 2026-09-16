@@ -160,44 +160,49 @@ void moverpieza(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza,int te
 
 int eliminarFilas(t_tablero *tablero)
 {
-    int f, c, escompleta,contadordefilaseliminadas=0;
+    int f, c;
+    int escompleta;
+    int contadordefilaseliminadas = 0;
 
-    for(f=0; f<FILAS-1; f++)
+    f = FILAS-1;
+
+    while(f >= 0)
     {
-        escompleta=1;
+        escompleta = 1;
 
-        // Verificar si la fila está completa
-        for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
+        for(c = INICIOCOLREAL; c < COLUMNAS - 1; c++)
         {
-            if(tablero->celdas[f][c]!=1)
+            if(tablero->celdas[f][c] != 1)
             {
-                escompleta=0;
+                escompleta = 0;
+                break;
             }
         }
 
-        if(escompleta==1)
+        if(escompleta == 1)
         {
             contadordefilaseliminadas++;
-            // Bajar las filas superiores
-            for(int fila=f; fila>0; fila--)
+
+            for(int fila = f; fila > 0; fila--)
             {
-                for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
+                for(c = INICIOCOLREAL; c < COLUMNAS - 1; c++)
                 {
-                    tablero->celdas[fila][c]=
-                        tablero->celdas[fila-1][c];
+                    tablero->celdas[fila][c] =
+                        tablero->celdas[fila - 1][c];
                 }
             }
 
-            // Limpiar la primera fila jugable
-            for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
+            for(c = INICIOCOLREAL; c < COLUMNAS - 1; c++)
             {
-                tablero->celdas[0][c]=0;
+                tablero->celdas[0][c] = 0;
             }
-
-            // Volver a revisar la misma fila
+        }
+        else
+        {
             f--;
         }
     }
+
     return contadordefilaseliminadas;
 }
 
