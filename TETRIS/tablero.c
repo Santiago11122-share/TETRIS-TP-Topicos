@@ -162,7 +162,7 @@ int eliminarFilas(t_tablero *tablero)
 {
     int f, c, escompleta,contadordefilaseliminadas=0;
 
-    for(f=INICIOFILAREAL; f<FILAS-1; f++)
+    for(f=0; f<FILAS-1; f++)
     {
         escompleta=1;
 
@@ -179,7 +179,7 @@ int eliminarFilas(t_tablero *tablero)
         {
             contadordefilaseliminadas++;
             // Bajar las filas superiores
-            for(int fila=f; fila>INICIOFILAREAL; fila--)
+            for(int fila=f; fila>0; fila--)
             {
                 for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
                 {
@@ -191,7 +191,7 @@ int eliminarFilas(t_tablero *tablero)
             // Limpiar la primera fila jugable
             for(c=INICIOCOLREAL; c<COLUMNAS-1; c++)
             {
-                tablero->celdas[INICIOFILAREAL][c]=0;
+                tablero->celdas[0][c]=0;
             }
 
             // Volver a revisar la misma fila
@@ -204,11 +204,11 @@ int eliminarFilas(t_tablero *tablero)
 int findejuego(t_tablero *tablero,t_pieza *pieza)
 {
     int sigueElJuego=1,c=INICIOCOLREAL;
-    while(tablero->celdas[INICIOFILAREAL][c]==0&&c<COLUMNAS)
+    while(tablero->celdas[0][c]==0&&c<COLUMNAS)
     {
         c++;
     }
-    if(tablero->celdas[INICIOFILAREAL][c]==1)
+    if(tablero->celdas[0][c]==1)
         sigueElJuego=0;
     return sigueElJuego;
 }

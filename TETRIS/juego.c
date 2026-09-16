@@ -12,7 +12,7 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
     Uint32 tiempoUltimaCaida = SDL_GetTicks();
 
     // Cada cuántos milisegundos baja sola la pieza
-    Uint32 intervaloCaida = 200;
+    Uint32 intervaloCaida = 300;
 
     *pieza = crearPieza();
     siguientepieza = crearPieza();
@@ -54,6 +54,8 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
 
             // Dibujar juego
             dibujarJuego(render, tablero, pieza, fondo);
+
+            SDL_Delay(16);
 
             //Mostrar siguiente pieza
             dibujarSiguientePieza(render, &siguientepieza);

@@ -3,9 +3,8 @@
 
 #include "pieza.h"
 
-#define FILAS 26
+#define FILAS 21
 #define COLUMNAS 12
-#define INICIOFILAREAL 5
 #define INICIOCOLREAL 1
 
 #define TECLA_NINGUNA    0

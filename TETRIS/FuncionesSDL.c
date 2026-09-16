@@ -1,6 +1,7 @@
 #include "FuncionesSDL.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 int inicializar_sdl(SDL_Window **ventana, SDL_Renderer **renderer)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -55,7 +56,7 @@ void dibujarTablero(SDL_Renderer *render, t_tablero *tablero)
         for(int c = 0; c < COLUMNAS; c++)
         {
             celda.x = 325 + c * 25;
-            celda.y = 125 + f * 25;
+            celda.y = 250 + f * 25;
 
             // Rectangulo un poco mas chico
             // para dejar separacion entre bloques
@@ -104,6 +105,7 @@ void dibujarTablero(SDL_Renderer *render, t_tablero *tablero)
                 SDL_SetRenderDrawColor(render, 220, 220, 220, 255);
                 SDL_RenderDrawRect(render, &celda);
             }
+
         }
     }
 }
@@ -133,10 +135,7 @@ SDL_Texture *cargarImagen(SDL_Renderer *renderer, const char *ruta)
 }
 
 
-void dibujarJuego(SDL_Renderer *renderer,
-                  t_tablero *tablero,
-                  t_pieza *pieza,
-                  SDL_Texture *fondo)
+void dibujarJuego(SDL_Renderer *renderer,t_tablero *tablero,t_pieza *pieza,SDL_Texture *fondo)
 {
     SDL_Rect destinoImagen;
 
@@ -150,10 +149,7 @@ void dibujarJuego(SDL_Renderer *renderer,
 
     if(fondo != NULL)
     {
-        SDL_RenderCopy(renderer,
-                       fondo,
-                       NULL,
-                       &destinoImagen);
+        SDL_RenderCopy(renderer,fondo,NULL,&destinoImagen);
     }
 
     // Piezas ya fijadas
@@ -213,14 +209,15 @@ void dibujarPieza(SDL_Renderer *renderer, t_pieza *pieza)
         {
             if(pieza->forma[f][c] != 0)
             {
-                bloque.x = 325 + (pieza->x + c) * 25 + 1;
-                bloque.y = 125 + (pieza->y + f) * 25 + 1;
 
-                SDL_SetRenderDrawColor(renderer, 0, 150, 255, 255);
-                SDL_RenderFillRect(renderer, &bloque);
+                    bloque.x = 325 + (pieza->x + c) * 25 + 1;
+                    bloque.y = 250 + (pieza->y + f) * 25 + 1;
 
-                SDL_SetRenderDrawColor(renderer, 220, 220, 220, 255);
-                SDL_RenderDrawRect(renderer, &bloque);
+                    SDL_SetRenderDrawColor(renderer, 0, 150, 255, 255);
+                    SDL_RenderFillRect(renderer, &bloque);
+
+                    SDL_SetRenderDrawColor(renderer, 220, 220, 220, 255);
+                    SDL_RenderDrawRect(renderer, &bloque);
             }
         }
     }
