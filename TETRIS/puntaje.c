@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-long long int mejorpuntaje()
+int mejorpuntaje()
 {
     int tamanio;
     long long int puntaje = 0;
@@ -17,12 +17,12 @@ long long int mejorpuntaje()
 
     if(tamanio == 0)
     {
-        fwrite(&puntaje,sizeof(long long int),1,f);
+        fwrite(&puntaje,sizeof(int),1,f);
     }
     else
     {
         fseek(f,0,SEEK_SET);
-        fread(&puntaje,sizeof(long long int),1,f);
+        fread(&puntaje,sizeof(int),1,f);
     }
 
     fclose(f);
@@ -33,9 +33,6 @@ long long int mejorpuntaje()
 int puntaje(int puntajeant,int filaselim)
 {
     int puntaje=puntajeant;
-
-
-
 
     switch(filaselim)
     {
@@ -57,4 +54,34 @@ int puntaje(int puntajeant,int filaselim)
     return puntaje;
 }
 
+void guardarpuntaje(int puntaje)
+{
+    FILE *f = fopen("puntaje.dat", "rb+");
+    int puntajehistorico = 0;
+
+    if(f == NULL)
+    {
+        // Si no existe, se crea
+        f = fopen("puntaje.dat", "wb+");
+
+        if(f == NULL)
+        {
+            printf("Error al abrir archivo\n");
+            return;
+        }
+    }
+
+    fseek(f,0,SEEK_SET);
+
+    fread(&puntajehistorico, sizeof(int), 1, f);
+
+    if(puntaje > puntajehistorico)
+    {
+        fseek(f, 0, SEEK_SET);
+
+        fwrite(&puntaje, sizeof(int), 1, f);
+    }
+
+    fclose(f);
+}
 

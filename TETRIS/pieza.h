@@ -8,7 +8,8 @@ typedef struct {
     int tipo;
 } t_pieza;
 
-t_pieza crearPieza();
+t_pieza crearPieza(void);
+void mostrarpieza(t_pieza *pieza);
 
 
 #endif // PIEZA_H_INCLUDED

@@ -524,12 +524,12 @@
 	<SDL2/SDL_ttf.h>
 	<SDL2/SDL_mixer.h>
 
-1789510704 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.c
+1789522209 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.c
 	"FuncionesSDL.h"
 	<stdio.h>
 	<stdlib.h>
 
-1789445937 c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.h
+1789522116 c:\users\santi\documents\github\tetris-tp topicos\tetris\funcionessdl.h
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 	<SDL2/SDL_ttf.h>
@@ -998,7 +998,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1789510580 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
+1789528648 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\juego.c
 	"juego.h"
 
 1789442843 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\main.c
@@ -1006,9 +1006,9 @@
 	<stdlib.h>
 	"juego.h"
 
-1789476755 c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.h
+1789521741 c:\users\santi\documents\github\tetris-tp topicos\tetris\pieza.h
 
-1789500462 c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.h
+1789521777 c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.h
 	"pieza.h"
 
 1789438277 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\musica.c
@@ -1030,7 +1030,7 @@
 	<stdio.h>
 	<time.h>
 
-1789500436 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
+1789522010 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\tablero.c
 	"tablero.h"
 	<stdio.h>
 	<stdlib.h>
@@ -1551,9 +1551,9 @@
 	"Musica.h"
 	"puntaje.h"
 
-1789510645 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\puntaje.c
+1789529090 source:c:\users\santi\documents\github\tetris-tp topicos\tetris\puntaje.c
 	<stdio.h>
 	<stdlib.h>
 
-1789501202 c:\users\santi\documents\github\tetris-tp topicos\tetris\puntaje.h
+1789528648 c:\users\santi\documents\github\tetris-tp topicos\tetris\puntaje.h
 

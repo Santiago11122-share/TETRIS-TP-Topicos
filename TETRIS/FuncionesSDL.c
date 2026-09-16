@@ -304,3 +304,32 @@ void mostrarPuntajeActual(SDL_Renderer *render,TTF_Font *fuente,long long int pu
     SDL_FreeSurface(superficie);
 }
 
+void dibujarSiguientePieza(SDL_Renderer *renderer, t_pieza *siguientepieza)
+{
+    SDL_Rect bloque;
+
+    int inicioX = 700;
+    int inicioY = 410;
+    int tam = 25;
+
+    bloque.w = tam - 2;
+    bloque.h = tam - 2;
+
+    for(int f = 0; f < 4; f++)
+    {
+        for(int c = 0; c < 4; c++)
+        {
+            if(siguientepieza->forma[f][c] != 0)
+            {
+                bloque.x = inicioX + c * tam + 1;
+                bloque.y = inicioY + f * tam + 1;
+
+                SDL_SetRenderDrawColor(renderer, 0, 150, 255, 255);
+                SDL_RenderFillRect(renderer, &bloque);
+
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                SDL_RenderDrawRect(renderer, &bloque);
+            }
+        }
+    }
+}

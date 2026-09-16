@@ -22,14 +22,17 @@ typedef struct {
 }t_tablero;
 
 t_tablero inicializarTablero();
-
-int hayColision(t_tablero *tablero,t_pieza *pieza,int nuevoX,int nuevoY);
-
-void colocarPieza(t_tablero *tablero,t_pieza *pieza);
-
-void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla);
-
+void mostrartablero(t_tablero *tablero);
+int hayColision(t_tablero *tablero, t_pieza *pieza, int nuevoX, int nuevoY);
+void rotarPieza(t_tablero *tablero,t_pieza *pieza);
+void colocarPieza(t_tablero *tablero, t_pieza *pieza,t_pieza *siguientepieza);
+int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza);
+void moverpieza(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza,int tecla);
 int eliminarFilas(t_tablero *tablero);
+int findejuego(t_tablero *tablero,t_pieza *pieza);
+
+
+
 
 
 #endif // TABLERO_H_INCLUDED

@@ -1,16 +1,25 @@
 #include "juego.h"
+
 int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Texture *fondo,TTF_Font *fuente,long long int mejorpto)
 {
     int tecla;
     int jugando = 1;
     int filaselim;
+    t_pieza siguientepieza;
+    int puntajeActual = 0;
 
-    long long int puntajeActual = 0;
+    // Guarda el momento de la última caída automática
+    Uint32 tiempoUltimaCaida = SDL_GetTicks();
+
+    // Cada cuántos milisegundos baja sola la pieza
+    Uint32 intervaloCaida = 200;
 
     *pieza = crearPieza();
+    siguientepieza = crearPieza();
 
     while(jugando && findejuego(tablero, pieza) == 1)
     {
+        // Leer teclado
         tecla = procesarEvento();
 
         if(tecla == TECLA_SALIR)
@@ -19,20 +28,35 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
         }
         else
         {
+            // Movimiento realizado por el jugador
             if(tecla != TECLA_NINGUNA)
             {
-                moverpieza(tablero, pieza, tecla);
+                moverpieza(tablero, pieza, &siguientepieza, tecla);
             }
 
-            moverpieza_abajo(tablero, pieza);
+            // Obtener tiempo actual
+            Uint32 tiempoActual = SDL_GetTicks();
 
+            // Solo bajar automáticamente si pasaron 500 ms
+            if(tiempoActual - tiempoUltimaCaida >= intervaloCaida)
+            {
+                moverpieza_abajo(tablero, pieza,&siguientepieza);
+
+                // Guardamos cuándo fue la última caída
+                tiempoUltimaCaida = tiempoActual;
+            }
+
+            // Eliminar filas completas
             filaselim = eliminarFilas(tablero);
 
-            // Actualizar puntaje actual
+            // Actualizar puntaje
             puntajeActual = puntaje(puntajeActual, filaselim);
 
             // Dibujar juego
             dibujarJuego(render, tablero, pieza, fondo);
+
+            //Mostrar siguiente pieza
+            dibujarSiguientePieza(render, &siguientepieza);
 
             // Mostrar mejor puntaje
             mostrarPuntaje(render, fuente, mejorpto);
@@ -40,12 +64,14 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
             // Mostrar puntaje actual
             mostrarPuntajeActual(render, fuente, puntajeActual);
 
+            // Mostrar todo en pantalla
             SDL_RenderPresent(render);
 
-            SDL_Delay(200);
+            // Mantener el loop rápido
+            SDL_Delay(16);
         }
     }
-
+    guardarpuntaje(puntajeActual);
     return 0;
 }
 

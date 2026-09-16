@@ -90,7 +90,7 @@ void rotarPieza(t_tablero *tablero,t_pieza *pieza)
     }
 }
 
-void colocarPieza(t_tablero *tablero, t_pieza *pieza)
+void colocarPieza(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza)
 {
     for(int f = 0; f < 4; f++)
     {
@@ -98,15 +98,21 @@ void colocarPieza(t_tablero *tablero, t_pieza *pieza)
         {
             if(pieza->forma[f][c] != 0)
             {
-                tablero->celdas[pieza->y + f][pieza->x + c] =
-                    pieza->forma[f][c];
+                tablero->celdas[pieza->y + f]
+                                [pieza->x + c] =
+                                pieza->forma[f][c];
             }
         }
     }
-    *pieza=crearPieza();
+
+    // La siguiente pasa a ser la actual
+    *pieza = *siguientepieza;
+
+    // Generamos una nueva siguiente
+    *siguientepieza = crearPieza();
 }
 
-int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza)
+int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza)
 {
     if(hayColision(tablero,pieza,pieza->x,pieza->y+1)==0)
     {
@@ -117,12 +123,12 @@ int moverpieza_abajo(t_tablero *tablero,t_pieza *pieza)
     else
     {
         //se fija la pieza en el tablero
-        colocarPieza(tablero,pieza);
+        colocarPieza(tablero,pieza,siguientepieza);
     }
     return 0;
 }
 
-void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla)
+void moverpieza(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza,int tecla)
 {
     switch(tecla)
         {
@@ -142,7 +148,7 @@ void moverpieza(t_tablero *tablero,t_pieza *pieza,int tecla)
                 break;
 
             case TECLA_ABAJO:
-                moverpieza_abajo(tablero,pieza);
+                moverpieza_abajo(tablero,pieza,siguientepieza);
                 break;
 
             case TECLA_ROTAR:
