@@ -4,6 +4,17 @@
 
 int inicializar_sdl(SDL_Window **ventana, SDL_Renderer **renderer)
 {
+    #ifdef _WIN32 //Manejo de dpi en windows
+    SDL_SetHint(SDL_HINT_WINDOWS_DPI_AWARENESS, "permonitorv2");
+    #endif
+
+
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    {
+    fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
+    return -1;
+    }
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         fprintf(stderr, "Error al inicializar SDL: %s\n", SDL_GetError());
