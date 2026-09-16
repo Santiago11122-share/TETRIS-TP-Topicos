@@ -1,5 +1,6 @@
 #ifndef JUEGO_H_INCLUDED
 #define JUEGO_H_INCLUDED
+#include <stdio.h>
 #include "tablero.h"
 #include "pieza.h"
 #include "FuncionesSDL.h"

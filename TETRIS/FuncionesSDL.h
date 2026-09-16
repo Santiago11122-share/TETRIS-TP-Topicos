@@ -21,6 +21,7 @@ void ejecutar_juego(SDL_Renderer *renderer, t_tablero *tablero);
 int procesarEvento(void);
 void dibujarPieza(SDL_Renderer *renderer, t_pieza *pieza);
 void mostrarPuntajeActual(SDL_Renderer *render,TTF_Font *fuente,long long int puntaje);
+void mostrarPuntaje(SDL_Renderer *render, TTF_Font *fuente, long long int puntaje);
 void dibujarSiguientePieza(SDL_Renderer *renderer, t_pieza *siguientepieza);
 
 #endif // FUNCIONESSDL_H_INCLUDED
