@@ -6,6 +6,16 @@
 #include "FuncionesSDL.h"
 #include "Musica.h"
 #include "puntaje.h"
+
+typedef enum {
+        MENU,
+        JUGAR,
+        CONTROLES,
+        EXIT
+} Estado;
+
 int IniciarJuego();
 int loopPrincipal(t_tablero *tablero, t_pieza *pieza,SDL_Renderer *render, SDL_Texture *fondo,TTF_Font *fuente, long long int mejorpto);
+bool mouseSobre(SDL_Point *p, SDL_Rect *r);
+
 #endif // JUEGO_H_INCLUDED
