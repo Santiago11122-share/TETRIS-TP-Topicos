@@ -6,16 +6,17 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
     int jugando = 1;
     int filaselim;
     t_pieza siguientepieza;
-    int puntajeActual = 0;
+    int puntajeActual = 0, contadores[7] = {0};
 
     // Guarda el momento de la ultima caida automatica
     Uint32 tiempoUltimaCaida = SDL_GetTicks();
 
     // Cada cuantos milisegundos baja sola la pieza
-    Uint32 intervaloCaida = 300;
+    Uint32 intervaloCaida = 400;
 
     *pieza = crearPieza();
     siguientepieza = crearPieza();
+    contadores[pieza->tipo]++;
 
     while(jugando && findejuego(tablero, pieza) == 1)
     {
@@ -31,7 +32,7 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
             // Movimiento realizado por el jugador
             if(tecla != TECLA_NINGUNA)
             {
-                moverpieza(tablero, pieza, &siguientepieza, tecla);
+                moverpieza(tablero, pieza, &siguientepieza, tecla, contadores);
             }
 
             // Obtener tiempo actual
@@ -40,9 +41,9 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
             // Solo bajar autom�ticamente si pasaron 500 ms
             if(tiempoActual - tiempoUltimaCaida >= intervaloCaida)
             {
-                moverpieza_abajo(tablero, pieza,&siguientepieza);
+                moverpieza_abajo(tablero, pieza,&siguientepieza,contadores);
 
-                // Guardamos cu�ndo fue la �ltima ca�da
+                // Guardamos cuando fue la ultima caida
                 tiempoUltimaCaida = tiempoActual;
             }
 
@@ -66,10 +67,13 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
             // Mostrar puntaje actual
             mostrarPuntajeActual(render, fuente, puntajeActual);
 
+            //Mostrar estadisticas
+            mostrarContadores(render,fuente,contadores);
+
             // Mostrar todo en pantalla
             SDL_RenderPresent(render);
 
-            // Mantener el loop r�pido
+            // Mantener el loop rapido
             SDL_Delay(16);
         }
     }

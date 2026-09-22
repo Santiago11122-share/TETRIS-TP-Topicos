@@ -224,7 +224,7 @@ void dibujarPieza(SDL_Renderer *renderer, t_pieza *pieza)
                     bloque.x = 325 + (pieza->x + c) * 25 + 1;
                     bloque.y = 250 + (pieza->y + f) * 25 + 1;
 
-                    SDL_SetRenderDrawColor(renderer, 0, 150, 255, 255);
+                    SDL_SetRenderDrawColor(renderer, pieza->rgb.r ,pieza->rgb.g ,pieza->rgb.b ,255);
                     SDL_RenderFillRect(renderer, &bloque);
 
                     SDL_SetRenderDrawColor(renderer, 220, 220, 220, 255);
@@ -272,6 +272,53 @@ void mostrarPuntaje(SDL_Renderer *render, TTF_Font *fuente, long long int puntaj
 
     SDL_DestroyTexture(textura);
     SDL_FreeSurface(superficie);
+}
+
+void mostrarContadores(SDL_Renderer *render,TTF_Font *fuente,int contadores[7])
+{
+    char texto[50];
+
+    SDL_Color color = {0, 0, 0, 255};
+
+    int x = 170;
+    int y = 315;
+    int separacion = 59;
+
+    for(int i = 0; i < 7; i++)
+    {
+        sprintf(texto, "%d", contadores[i]);
+
+        SDL_Surface *superficie =
+            TTF_RenderText_Solid(fuente, texto, color);
+
+        if(superficie == NULL)
+        {
+            printf("Error superficie: %s\n", TTF_GetError());
+            continue;
+        }
+
+        SDL_Texture *textura =
+            SDL_CreateTextureFromSurface(render, superficie);
+
+        if(textura == NULL)
+        {
+            printf("Error textura: %s\n", SDL_GetError());
+            SDL_FreeSurface(superficie);
+            continue;
+        }
+
+        SDL_Rect destino = {
+            x,
+            y + i * separacion,
+            superficie->w,
+            superficie->h
+        };
+
+        SDL_RenderCopy(render, textura, NULL, &destino);
+
+        SDL_DestroyTexture(textura);
+        SDL_FreeSurface(superficie);
+    }
 }
 
 void mostrarPuntajeActual(SDL_Renderer *render,TTF_Font *fuente,long long int puntaje)
@@ -332,7 +379,7 @@ void dibujarSiguientePieza(SDL_Renderer *renderer, t_pieza *siguientepieza)
                 bloque.x = inicioX + c * tam + 1;
                 bloque.y = inicioY + f * tam + 1;
 
-                SDL_SetRenderDrawColor(renderer, 0, 150, 255, 255);
+                SDL_SetRenderDrawColor(renderer, siguientepieza->rgb.r, siguientepieza->rgb.g, siguientepieza->rgb.b, 255);
                 SDL_RenderFillRect(renderer, &bloque);
 
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);

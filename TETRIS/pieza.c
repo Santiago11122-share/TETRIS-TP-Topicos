@@ -66,7 +66,18 @@ t_pieza crearPieza() {
         }
     };
 
+    t_color colores[] = {
+    {0,   255, 255},  // Cyan
+    {255, 255, 0},    // Amarillo
+    {128, 0,   128},  // Violeta
+    {0,   255, 0},    // Verde
+    {255, 0,   0},    // Rojo
+    {0,   0,   255},  // Azul
+    {255, 165, 0}     // Naranja
+    };
+
     p.tipo = rand() % 7;
+    p.rgb= colores[p.tipo];
 
     p.x = 4;
     p.y = 0;
