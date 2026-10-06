@@ -41,29 +41,31 @@ void mostrartablero(t_tablero *tablero)
 
 int hayColision(t_tablero *tablero, t_pieza *pieza, int nuevoX, int nuevoY)
 {
-    int f, c;
+    int f=0, c,hubocolision=0;
 
-    for(f=0; f<4; f++)
+    while(!hubocolision && f<4)
     {
-        for(c=0; c<4; c++)
+        c=0;
+        while(!hubocolision && c<4)
         {
             if(pieza->forma[f][c] != 0)
             {
                 // Verificar que no salga del tablero
                 if(nuevoX+c < 0 || nuevoX+c >= COLUMNAS)
-                    return 1;
-
-                if(nuevoY+f < 0 || nuevoY+f >= FILAS)
-                    return 1;
-
-                // Verificar colision con otra pieza o borde
-                if(tablero->celdas[nuevoY+f][nuevoX+c] != 0)
-                    return 1;
+                    hubocolision=1;
+                else
+                    if(nuevoY+f < 0 || nuevoY+f >= FILAS)
+                        hubocolision=1;
+                    else
+                        // Verificar colision con otra pieza o borde
+                        if(tablero->celdas[nuevoY+f][nuevoX+c] != 0)
+                            hubocolision=1;
             }
+            c++;
         }
+        f++;
     }
-    //sin colision
-    return 0;
+    return hubocolision;
 }
 
 void rotarPieza(t_tablero *tablero,t_pieza *pieza)
@@ -171,14 +173,12 @@ int eliminarFilas(t_tablero *tablero)
     while(f >= 0)
     {
         escompleta = 1;
-
-        for(c = INICIOCOLREAL; c < COLUMNAS - 1; c++)
+        c=INICIOCOLREAL;
+        while(c < COLUMNAS - 1 && escompleta)
         {
             if(tablero->celdas[f][c] != 1)
-            {
                 escompleta = 0;
-                break;
-            }
+            c++;
         }
 
         if(escompleta == 1)
