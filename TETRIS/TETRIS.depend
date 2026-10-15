@@ -1522,7 +1522,7 @@
 1790098662 c:\users\usuario\desktop\tp github\tetris-tp-topicos\tetris\tablero.h
 	"pieza.h"
 
-1789438393 source:c:\users\usuario\desktop\tp github\tetris-tp-topicos\tetris\musica.c
+1791386145 source:c:\users\usuario\desktop\tp github\tetris-tp-topicos\tetris\musica.c
 	<stdbool.h>
 	<stdio.h>
 	<stdlib.h>
@@ -1541,7 +1541,7 @@
 	<stdio.h>
 	<time.h>
 
-1790098662 source:c:\users\usuario\desktop\tp github\tetris-tp-topicos\tetris\tablero.c
+1791386209 source:c:\users\usuario\desktop\tp github\tetris-tp-topicos\tetris\tablero.c
 	"tablero.h"
 	<stdio.h>
 	<stdlib.h>
