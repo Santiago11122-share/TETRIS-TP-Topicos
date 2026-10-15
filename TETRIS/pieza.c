@@ -64,6 +64,7 @@ t_pieza crearPieza() {
             {0,0,0,0},
             {0,0,0,0}
         }
+
     };
 
     t_color colores[] = {

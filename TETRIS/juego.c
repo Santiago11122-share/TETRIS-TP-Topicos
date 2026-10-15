@@ -38,7 +38,7 @@ int loopPrincipal(t_tablero *tablero,t_pieza *pieza,SDL_Renderer *render,SDL_Tex
             // Obtener tiempo actual
             Uint32 tiempoActual = SDL_GetTicks();
 
-            // Solo bajar autom�ticamente si pasaron 500 ms
+            // Solo bajar automaticamente si pasaron 500 ms
             if(tiempoActual - tiempoUltimaCaida >= intervaloCaida)
             {
                 moverpieza_abajo(tablero, pieza,&siguientepieza,contadores);

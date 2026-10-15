@@ -78,7 +78,7 @@ void dibujarTablero(SDL_Renderer *render, t_tablero *tablero)
 
 
             // CELDA VACIA
-            if(tablero->celdas[f][c] == 0)
+            if(tablero->celdas[f][c].estado == 0)
             {
                 // Fondo negro
                 SDL_SetRenderDrawColor(render, 15, 15, 15, 255);
@@ -91,14 +91,14 @@ void dibujarTablero(SDL_Renderer *render, t_tablero *tablero)
 
 
             // PIEZA
-            else if(tablero->celdas[f][c] == 1)
+            else if(tablero->celdas[f][c].estado == 1)
             {
                 // Fondo de la celda
                 SDL_SetRenderDrawColor(render, 15, 15, 15, 255);
                 SDL_RenderFillRect(render, &celda);
 
                 // Bloque azul
-                SDL_SetRenderDrawColor(render, 0, 150, 255, 255);
+                SDL_SetRenderDrawColor(render, tablero->celdas[f][c].color.r, tablero->celdas[f][c].color.g, tablero->celdas[f][c].color.b, 255);
                 SDL_RenderFillRect(render, &bloque);
 
                 // Borde claro del bloque
@@ -108,7 +108,7 @@ void dibujarTablero(SDL_Renderer *render, t_tablero *tablero)
 
 
             // BORDE DEL TABLERO
-            else if(tablero->celdas[f][c] == 2)
+            else if(tablero->celdas[f][c].estado == 2)
             {
                 SDL_SetRenderDrawColor(render, 150, 150, 150, 255);
                 SDL_RenderFillRect(render, &celda);

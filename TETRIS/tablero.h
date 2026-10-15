@@ -15,13 +15,18 @@
 #define TECLA_SALIR      5
 
 typedef struct {
+    int estado;
+    t_color color;
 
-    int celdas[FILAS][COLUMNAS];
+}t_celda;
+
+typedef struct {
+
+    t_celda celdas[FILAS][COLUMNAS];
 
 }t_tablero;
 
 t_tablero inicializarTablero();
-void mostrartablero(t_tablero *tablero);
 int hayColision(t_tablero *tablero, t_pieza *pieza, int nuevoX, int nuevoY);
 void rotarPieza(t_tablero *tablero,t_pieza *pieza);
 void colocarPieza(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza,int contadores[]);

@@ -11,7 +11,7 @@ t_tablero inicializarTablero()
         {
             for(int c=0; c<COLUMNAS; c++)
             {
-                tablero.celdas[f][c]=2;
+                tablero.celdas[f][c].estado=2;
             }
         }
         else
@@ -19,24 +19,13 @@ t_tablero inicializarTablero()
             for(int c=0; c<COLUMNAS; c++)
             {
                 if(c==0||c==11)
-                    tablero.celdas[f][c]=2;
+                    tablero.celdas[f][c].estado=2;
                 else
-                    tablero.celdas[f][c]=0;
+                    tablero.celdas[f][c].estado=0;
             }
         }
     }
     return tablero;
-}
-void mostrartablero(t_tablero *tablero)
-{
-    for(int f = 0; f < FILAS; f++)
-    {
-        for(int c = 0; c < COLUMNAS; c++)
-        {
-            printf("%d",tablero->celdas[f][c]);
-        }
-        printf("\n");
-    }
 }
 
 int hayColision(t_tablero *tablero, t_pieza *pieza, int nuevoX, int nuevoY)
@@ -58,7 +47,7 @@ int hayColision(t_tablero *tablero, t_pieza *pieza, int nuevoX, int nuevoY)
                         hubocolision=1;
                     else
                         // Verificar colision con otra pieza o borde
-                        if(tablero->celdas[nuevoY+f][nuevoX+c] != 0)
+                        if(tablero->celdas[nuevoY+f][nuevoX+c].estado != 0)
                             hubocolision=1;
             }
             c++;
@@ -100,12 +89,12 @@ void colocarPieza(t_tablero *tablero,t_pieza *pieza,t_pieza *siguientepieza,int 
         {
             if(pieza->forma[f][c] != 0)
             {
-                tablero->celdas[pieza->y + f]
-                                [pieza->x + c] =
-                                pieza->forma[f][c];
+                tablero->celdas[pieza->y + f][pieza->x + c].estado = pieza->forma[f][c];
+                tablero->celdas[pieza->y + f][pieza->x + c].color = pieza->rgb;
             }
         }
     }
+
 
     // La siguiente pasa a ser la actual
     *pieza = *siguientepieza;
@@ -176,7 +165,7 @@ int eliminarFilas(t_tablero *tablero)
         c=INICIOCOLREAL;
         while(c < COLUMNAS - 1 && escompleta)
         {
-            if(tablero->celdas[f][c] != 1)
+            if(tablero->celdas[f][c].estado != 1)
                 escompleta = 0;
             c++;
         }
@@ -189,14 +178,14 @@ int eliminarFilas(t_tablero *tablero)
             {
                 for(c = INICIOCOLREAL; c < COLUMNAS - 1; c++)
                 {
-                    tablero->celdas[fila][c] =
-                        tablero->celdas[fila - 1][c];
+                    tablero->celdas[fila][c].estado = tablero->celdas[fila - 1][c].estado;
+                    tablero->celdas[fila][c].color = tablero->celdas[fila - 1][c].color;
                 }
             }
 
             for(c = INICIOCOLREAL; c < COLUMNAS - 1; c++)
             {
-                tablero->celdas[0][c] = 0;
+                tablero->celdas[0][c].estado = 0;
             }
         }
         else
@@ -211,11 +200,11 @@ int eliminarFilas(t_tablero *tablero)
 int findejuego(t_tablero *tablero,t_pieza *pieza)
 {
     int sigueElJuego=1,c=INICIOCOLREAL;
-    while(tablero->celdas[0][c]==0&&c<COLUMNAS)
+    while(tablero->celdas[0][c].estado==0&&c<COLUMNAS)
     {
         c++;
     }
-    if(tablero->celdas[0][c]==1)
+    if(tablero->celdas[0][c].estado==1)
         sigueElJuego=0;
     return sigueElJuego;
 }
